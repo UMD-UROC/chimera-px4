@@ -131,7 +131,17 @@ int UavcanRangefinderBridge::init_driver(uavcan_bridge::Channel *channel)
 	// Build device ID using node_id and interface index
 	uint32_t device_id = make_uavcan_device_id(static_cast<uint8_t>(channel->node_id), channel->iface_index);
 
-	channel->h_driver = new PX4Rangefinder(device_id, distance_sensor_s::ROTATION_DOWNWARD_FACING);
+	// WORKAROUND: upstream hardcodes every DroneCAN rangefinder as downward-facing and offers
+	// no per-node orientation config (still true on upstream main as of Aug 2026). We fly one
+	// downward- and one forward-facing rangefinder, so the sensor on this CAN node ID is
+	// reported as forward-facing. Drop this patch if upstream gains per-node orientation.
+	static constexpr int FORWARD_FACING_NODE_ID = 50;
+
+	const uint8_t rotation = (channel->node_id == FORWARD_FACING_NODE_ID)
+				 ? distance_sensor_s::ROTATION_FORWARD_FACING
+				 : distance_sensor_s::ROTATION_DOWNWARD_FACING;
+
+	channel->h_driver = new PX4Rangefinder(device_id, rotation);
 
 	if (channel->h_driver == nullptr) {
 		return PX4_ERROR;
