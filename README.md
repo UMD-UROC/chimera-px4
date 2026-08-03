@@ -1,3 +1,11 @@
+**UMD-UROC Chimera fork** — build for the EchoPilot AI:
+
+    make echomav_echopilot-ai_default
+
+Fork details & flashing: [CHIMERA.md](CHIMERA.md)
+
+---
+
 # PX4 Drone Autopilot
 
 [![Releases](https://img.shields.io/github/release/PX4/PX4-Autopilot.svg)](https://github.com/PX4/PX4-Autopilot/releases) [![DOI](https://zenodo.org/badge/22634/PX4/PX4-Autopilot.svg)](https://zenodo.org/badge/latestdoi/22634/PX4/PX4-Autopilot)
