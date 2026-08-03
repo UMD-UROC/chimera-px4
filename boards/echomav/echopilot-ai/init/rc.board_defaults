@@ -1,0 +1,19 @@
+#!/bin/sh
+#
+# EchoMAV EchoPilot AI specific board defaults
+#------------------------------------------------------------------------------
+
+# Enable IMU thermal control
+param set-default SENS_EN_THERMAL 1
+
+# Set TELEM2 to enable MAVLInk at 500kbps, since this is used for telemetry streaming
+param set-default MAV_1_CONFIG 102
+param set-default SER_TEL2_BAUD 500000
+
+# Voltage/Curent Monitoring
+param set-default BAT1_V_CHANNEL 16
+param set-default BAT1_I_CHANNEL 17
+param set-default BAT2_V_CHANNEL 14
+param set-default BAT2_I_CHANNEL 15
+
+param set-default SYS_USE_IO 1
